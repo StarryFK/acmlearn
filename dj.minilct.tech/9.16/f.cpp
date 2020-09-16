@@ -14,7 +14,6 @@ int main(){
     while(t--){
         int n;
         cin >> n;
-        int tot=0;
         for(int i=0; i<n; i++){
             cin >> l[i];
             sum[i+1] = l[i] + sum[i];
