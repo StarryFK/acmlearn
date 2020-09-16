@@ -7,5 +7,6 @@ int main(){
         cout << i << ':' << a%37 << endl;
         a <<= 1;
     }
+    cout << endl;
 
 }
