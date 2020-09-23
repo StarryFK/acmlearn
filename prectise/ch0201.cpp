@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-int status=0;
+int status;
 bool ma[5][5];
 bool cp[5][5];
 
@@ -80,13 +80,13 @@ int main(){
         //cout << '\n';
 
         int mintime=0x3f3f3f3f;
-        for(; status<32; status++){
+        for(status=0; status<32; status++){
             int time = check();
             if(time>=0){
                 mintime = min(mintime, time);
             }
         }
-        cout << mintime << '\n';
+//        cout << mintime << '\n';
         if(mintime<=6){
             cout << mintime << '\n';
         }else{
