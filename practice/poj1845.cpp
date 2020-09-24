@@ -24,15 +24,22 @@ bool getpf(ull n) {
 ull powmod(ull a, ull b) {
     ull result = 1;
     for (int i = 0; i < b; i++) {
-        result = (result % mod) * (a % mod);
+        result = ((result % mod) * (a % mod))%mod;
     }
+    return result;
 }
 
 ull summod(ull p, ull c) {
-    if (p & 1) {
-        return (1 + powmod(p, (c + 1) / 2)) * summod(p, (c - 1) / 2);
+
+//    cout << p << ' ' << c << '\n';
+
+    if(c==1){
+        return p+1;
+    }
+    if (c & 1) {
+        return ((1 + powmod(p, (c + 1) / 2)) * summod(p, (c - 1) / 2))%mod;
     } else {
-        return (1 + powmod(p, c / 2)) * summod(p, c / 2 - 1) + powmod(p, c);
+        return (((1 + powmod(p, c / 2)) * summod(p, c / 2 - 1))%mod + powmod(p, c))%mod;
     }
 }
 
@@ -42,13 +49,13 @@ int main() {
     bool prime = getpf(a);
     ull result = 1;
     if (prime) {
-        result = result * summod(a, b);
+        result = (result * summod(a, b))%mod;
     } else {
         for (int i = 2; i <= sqrt(a); i++) {
             if (pf[i] == 0) {
                 continue;
             }
-            result = result * summod(i, b * pf[i]);
+            result = (result * summod(i, b * pf[i]))%mod;
         }
     }
     cout << result << '\n';
