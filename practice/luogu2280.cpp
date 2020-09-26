@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 using namespace std;
 
 int sum[5005][5005];
@@ -28,5 +29,18 @@ int main(){
     }
 
     int maxv=0;
-    for(int i=0; i<5005-m)
+    for(int i=0; i+m-1<5005; i++){
+       for(int j=0; j+m-1<5005; j++){
+           if(i==0 && j==0){
+               maxv = max(sum[i+m-1][j+m-1], maxv);
+           }else if(i==0){
+               maxv = max(sum[i+m-1][j+m-1] - sum[i+m-1][j-1], maxv);
+           }else if(j==0){
+               maxv = max(sum[i+m-1][j+m-1]-sum[i-1][j+m-1], maxv);
+           }else{
+               maxv = max(sum[i+m-1][j+m-1]-sum[i-1][j+m-1]-sum[i+m-1][j-1]+sum[i-1][j-1], maxv);
+           }
+       } 
+    }
+    cout << maxv << '\n';
 }
