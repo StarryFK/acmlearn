@@ -10,7 +10,7 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    
+
     memset(cnt, 0, sizeof(cnt));
     memset(maxcnt, 0, sizeof(maxcnt));
     int n,q;
