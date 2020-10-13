@@ -26,9 +26,17 @@ function Close(char)
 endfunction
 
 map <C-A> ggVG"+y
-map <F5> :call Run()<CR>
-func! Run()
+map <C-S> ggvG$c
+map <F5> :call Comp()<CR>
+map <F6> :call Run()<CR>
+map <F7> :call Runw()<CR>
+func! Comp()
     exec "w"
     exec "!g++ -O2 -std=c++11 -Wall % -o %<"
-    exec "!./%<"
+endfunc
+func! Run()
+	exec "!./%<"
+endfunc
+func! Runw()
+	exec "!./%< <in.txt"
 endfunc
