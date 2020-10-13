@@ -35,8 +35,8 @@ func! Comp()
     exec "!g++ -O2 -std=c++11 -Wall % -o %<"
 endfunc
 func! Run()
-	exec "!./%<"
+	exec "!time ./%<"
 endfunc
 func! Runw()
-	exec "!./%< <in.txt"
+	exec "!time ./%< <in.txt"
 endfunc
