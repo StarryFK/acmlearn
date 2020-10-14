@@ -11,7 +11,7 @@ int main(){
 	cin.tie(0);
 	cout.tie(0);
 	srand(clock());
-	for(int i=0; i<10; i++){
+	for(int i=0; i<1000000; i++){
 		cout << rand() << '\n';
 	}
 }
