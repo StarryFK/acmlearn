@@ -14,6 +14,8 @@ set nomagic
 :inoremap ( ()<ESC>i
 :inoremap [ []<ESC>i
 :inoremap { {}<ESC>i
+:inoremap ' ''<ESC>i
+:inoremap " ""<ESC>i
 :inoremap {<CR> {<CR>}<ESC>O
 :inoremap ) <c-r>=Close(')')<CR>
 :inoremap ] <c-r>=Close(']')<CR>
