@@ -10,6 +10,7 @@ set showmatch
 set matchtime=0
 set report=0
 set nomagic
+
 :inoremap ( ()<ESC>i
 :inoremap [ []<ESC>i
 :inoremap { {}<ESC>i
@@ -17,26 +18,21 @@ set nomagic
 :inoremap ) <c-r>=Close(')')<CR>
 :inoremap ] <c-r>=Close(']')<CR>
 :inoremap } <c-r>=Close('}')<CR>
-function Close(char)
+
+func! Close(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
     else
         return a:char
     endif
-endfunction
+endfunc
 
 map <C-A> ggVG"+y
-map <C-S> ggvG$c
+map <C-S> ggVGc
 map <F5> :call Comp()<CR>
-map <F6> :call Run()<CR>
-map <F7> :call Runw()<CR>
+map <F6> :!time ./%< <in.txt
+
 func! Comp()
     exec "w"
     exec "!g++ -O2 -std=c++11 -Wall % -o %<"
-endfunc
-func! Run()
-	exec "!time ./%<"
-endfunc
-func! Runw()
-	exec "!time ./%< <in.txt"
 endfunc
