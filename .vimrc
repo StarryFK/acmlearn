@@ -1,22 +1,12 @@
-filetype plugin indent on
-set nu
-set hlsearch 
-set syntax=on
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set smartindent
-set showmatch
-set matchtime=0
-set report=0
-set nomagic
+filet indent on
+se sc nocp nomagic report=0 mat=0 sm nu cin ts=4 hls sw=4 sts=4 sta
+sy on
 
 :inoremap ( ()<ESC>i
 :inoremap [ []<ESC>i
 :inoremap { {}<ESC>i
-:inoremap ' ''<ESC>i
-:inoremap " ""<ESC>i
 :inoremap {<CR> {<CR>}<ESC>O
+
 :inoremap ) <c-r>=Close(')')<CR>
 :inoremap ] <c-r>=Close(']')<CR>
 :inoremap } <c-r>=Close('}')<CR>
@@ -31,10 +21,6 @@ endfunc
 
 map <C-A> ggVG"+y
 map <C-S> ggVGc
-map <F5> :call Comp()<CR>
+map <F5> :w<CR>:!g++ -O2 -std=c++11 -Wall -Wextra -Wshadow % -o %<<CR>
 map <F6> :!time ./%< <in.txt
 
-func! Comp()
-    exec "w"
-    exec "!g++ -O2 -std=c++11 -Wall % -o %<"
-endfunc
