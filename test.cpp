@@ -19,6 +19,11 @@ int main(){
 		a = rand();
 	}
 
+	for(int i=0; i<1000; i++){
+		cout << 1 << '\n';
+		cout << 2 << '\n';
+	}
+
 	cout << a << '\n';
 }
 
