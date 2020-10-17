@@ -13,13 +13,6 @@ int main(){
 	int a=0;
 
 	for(int i=0; i<1000; i++){
-		for(int i=0; i<1000; i++){
-			cout << 1 << '\n';
-		}
-		a = rand();
-	}
-
-	for(int i=0; i<1000; i++){
 		cout << 1 << '\n';
 		cout << 2 << '\n';
 	}

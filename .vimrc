@@ -1,5 +1,5 @@
 filet indent on
-se fdm=indent fen wmnu scs ls=2 sc nocp nomagic report=0 mat=0 sm nu si ts=4 hls sw=4 sts=4 sta
+se nocp hi=1000 rnu fdm=indent fen wmnu ic scs ls=2 sc nomagic report=0 mat=0 sm nu si ts=4 hls sw=4 sts=4 sta
 sy on
 
 :inoremap ( ()<ESC>i
