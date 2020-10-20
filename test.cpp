@@ -5,18 +5,17 @@
 #define ull unsigned long long 
 using namespace std;
 
+int arr[105];
+
 int main(){
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-
-	int a=0;
-
-	for(int i=0; i<1000; i++){
-		cout << 1 << '\n';
-		cout << 2 << '\n';
+	int n;
+	int i=0;
+	while(cin >>n){
+		arr[i++] = n;
 	}
-
-	cout << a << '\n';
+	for(int j=i-2; j>-1; j--){
+		cout << arr[j] <<' ';
+	}
+	cout << endl;
 }
 
