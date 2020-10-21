@@ -1,21 +1,20 @@
 #include <cstdio>
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #define ull unsigned long long 
 using namespace std;
 
-int arr[105];
-
 int main(){
 	int n;
-	int i=0;
-	while(cin >>n){
-		arr[i++] = n;
+	
+	//ios::sync_with_stdio(false);
+	//cin.tie(0);
+	//cout.tie(0);
+	//while(cin >> n){
+	//	cout << n << '\n';
+	//}
+
+	while(~scanf("%d", &n)){
+		printf("%d\n", n);
 	}
-	for(int j=i-2; j>-1; j--){
-		cout << arr[j] <<' ';
-	}
-	cout << endl;
 }
 
