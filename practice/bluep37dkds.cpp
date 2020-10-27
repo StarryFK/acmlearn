@@ -23,9 +23,9 @@ int search(int l, int r){
 		v[j] = v[i];
 	}
 	v[i] = pi;
-	if(i-l+1>k){
+	if(i>k){
 		return search(l,i-1);
-	}else if(i-l+1<k){
+	}else if(i<k){
 		return search(i+1,r);
 	}else{
 		return v[i];
@@ -36,7 +36,7 @@ int main(){
 	RI(k);
 	while(~RI(tmp)){
 		v.push_back(tmp);
-		printf("1\n");
+		//printf("1\n");
 	}
 	printf("%d\n", search(0, v.size()-1));
 }
