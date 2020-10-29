@@ -34,6 +34,7 @@ int search(int l, int r){
 int main(){
 	int tmp;
 	RI(k);
+	k--;
 	while(~RI(tmp)){
 		v.push_back(tmp);
 		//printf("1\n");
