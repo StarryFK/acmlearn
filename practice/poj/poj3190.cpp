@@ -12,9 +12,11 @@ using namespace std;
 struct Cow{
 	int in;
 	int out;
-	Cow(int a, int b){
+	int index;
+	Cow(int a, int b, int i){
 		in = a;
 		out = b;
+		index = i;
 	}
 };
 
@@ -52,33 +54,32 @@ int main(){
 		memset(cis,0,sizeof(cis));
 		int l,r;
 		clearq(q);
+		v.clear();
 		for(int i=0; i<n; i++){
 			RI(l);
 			RI(r);
-			v.push_back(Cow(l,r));
+			v.push_back(Cow(l,r,i+1));
 		}
 		sort(v.begin(), v.end());
 		int scnt=0;
-		int ccnt=0;
 		for(int i=0; i<(int)v.size(); i++){
-
 			if(q.empty()){
 				q.push(Stall(v[i].out, ++scnt));
-				cis[ccnt++] = scnt; 
+				cis[v[i].index] = scnt; 
 			}else{
-				if(q.top().out<=v[i].in){
+				if(q.top().out<v[i].in){
 					int index=q.top().index;
 					q.pop();
 					q.push(Stall(v[i].out, index));
-					cis[ccnt++] = index;
+					cis[v[i].index] = index;
 				}else{
 					q.push(Stall(v[i].out, ++scnt));
-					cis[ccnt++] = scnt;
+					cis[v[i].index] = scnt;
 				}
 			}
 		}
 		printf("%d\n", scnt);
-		for(int i=0; i<ccnt; i++){
+		for(int i=1; i<=n; i++){
 			printf("%d\n", cis[i]);
 		}
 	}
