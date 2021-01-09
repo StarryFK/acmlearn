@@ -1,4 +1,6 @@
-abcbabcbabcba
-abacacbaaaab
-END
+3
+aaa
+12
+aabaabaabaab
+0
 
