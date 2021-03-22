@@ -65,8 +65,8 @@ int main(){
 		can[i][i] = 1;
 	}
 	for(int i=tos.size()-1; i>=0; i--){
-		for(int e=head[i]; e!=0; e=nx[e]){
-			can[i] |= can[to[e]];
+		for(int e=head[tos[i]]; e!=0; e=nx[e]){
+			can[tos[i]] |= can[to[e]];
 		}
 	}
 	for(int i=1; i<=n; i++){
