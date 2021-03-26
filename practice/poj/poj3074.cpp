@@ -7,17 +7,9 @@ using namespace std;
 
 int l[9], _[9], o[3][3];
 int getbit[40];
-int get1num[0x000003FF];
+int get1num[0x3FF];
 int ma[9][9];
 int cnt=0;
-
-inline void clrbit(int& num, int pos){
-	num &= ~(1<<pos);
-}
-
-inline void setbit(int &num, int pos){
-	num |= (1<<pos);
-}
 
 inline int lowbit(int num){
 	return getbit[(num&(-num))%37];
@@ -27,10 +19,10 @@ inline void init(){
 	for(int i=0; i<15; i++){
 		getbit[(1<<i)%37] = i;
 	}
-	for(int i=0; i<=0x000003FE; i++){
+	for(int i=0; i<=0x3FE; i++){
 		int ccnt=0, tmp=i;
 		while(tmp){
-			tmp -= 1<<getbit[tmp];
+			tmp -= 1<<lowbit(tmp);
 			ccnt++;
 		}
 		get1num[i] = ccnt;
@@ -39,12 +31,12 @@ inline void init(){
 
 inline void clr(){
 	for(int i=0; i<9; i++){
-		l[i] = 0x000003FE;
-		_[i] = 0x000003FE;
+		l[i] = 0x3FE;
+		_[i] = 0x3FE;
 	}
 	for(int i=0; i<3; i++){
 		for(int j=0; j<3; j++){
-			o[i][j] = 0x000003FE;
+			o[i][j] = 0x3FE;
 		}
 	}
 	cnt=0;
@@ -68,7 +60,10 @@ bool dfs(){
 				continue;
 			}
 			ccnt=get1num[l[j] & _[i] &o[i/3][j/3]];
-			if(ccnt>0 && ccnt < choice){
+			if(cnt==0){
+				return false;
+			}
+			if(ccnt < choice){
 				x=i, y=j;
 				choice=ccnt;
 			}
@@ -80,9 +75,9 @@ bool dfs(){
 		while(choice){
 			curc = lowbit(choice);
 			choice -= (1<<curc);
-			clrbit(l[y], curc);
-			clrbit(_[x], curc);
-			clrbit(o[x/3][y/3], curc);
+			l[y] -= (1<<curc);
+			_[x] -= (1<<curc);
+			o[x/3][y/3] -= (1<<curc);
 			ma[x][y] = curc;
 
 			//cout << x << ' ' << y << ' ' << curc << endl;
@@ -91,9 +86,9 @@ bool dfs(){
 				return true;
 			}
 			ma[x][y] = 0;
-			setbit(l[y], curc);
-			setbit(_[x], curc);
-			setbit(o[x/3][y/3], curc);
+			l[y] += (1<<curc);
+			_[x] += (1<<curc);
+			o[x/3][y/3] += (1<<curc);
 		}
 		cnt--;
 	}
@@ -116,9 +111,9 @@ int main(){
 				}else{
 					ma[i][j] = ch-'0';
 					cnt++;
-					clrbit(l[j], ch-'0');
-					clrbit(_[i], ch-'0');
-					clrbit(o[i/3][j/3], ch-'0');
+					l[j] -= (1<<(ch-'0'));
+					_[i] -= (1<<(ch-'0'));
+					o[i/3][j/3] -= (1<<(ch-'0'));
 				}
 			}
 		}
