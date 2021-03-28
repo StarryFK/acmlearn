@@ -38,22 +38,22 @@ void dfs(LL dep, LL s, LL v){
 	for(LL curr=min(r[dep+1]-1, (LL)sqrt(n-v)); curr>=dep; curr--){
 		for(LL curh=min(h[dep+1]-1, (LL)((n-v)/curr/curr)); curh>=dep; curh--){
 
-			//cout << curr << ' ' << curh << endl;
+			//cout << curr << ' ' << curh << ' ' << r[m] << ' ' << ans << endl;
 
+			r[dep]=curr;
+			h[dep]=curh;
 			if(v+curr*curr*curh+limv[dep-1] > n){
 				continue;
 			}
 			if(v+dep*curr*curr*curh < n){
 				continue;
 			}
-			if(s+curr*curh*2+lims[dep-1] > ans){
+			if(s+curr*curh*2+lims[dep-1]+r[m]*r[m] > ans){
 				continue;
 			}
-			if(2*(n-v)/r[dep]+s > ans){
+			if(2*(n-v)/r[dep]+s+r[m]*r[m] > ans){
 				continue;
 			}
-			r[dep]=curr;
-			h[dep]=curh;
 			dfs(dep-1, s+2*curr*curh, v+curr*curr*curh);
 		}
 	}
