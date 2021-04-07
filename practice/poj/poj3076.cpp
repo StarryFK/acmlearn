@@ -4,22 +4,26 @@
 #include <cstdio>
 using namespace std;
 #define INF 0x3f3f3f3f
-
 int ma[20][20];
 int l[20];
 int _[20];
 int o[5][5];
 int gbarr[40];
-int get1[1<<18];
+int get1[(1<<17)+5];
 int tot=0;
 int bma[260][20][20];
 int bl[260][20];
 int b_[260][20];
 int bo[260][5][5];
-
 inline void printma(){
 	for(int i=0; i<16; i++){
+		if(i%4==0){
+			puts("");
+		}
 		for(int j=0; j<16; j++){
+			if(j%4==0){
+				cout << ' ';
+			}
 			if(ma[i][j]==0){
 				printf("-");
 			}else{
@@ -34,15 +38,6 @@ inline int lowbit(int num){
 }
 inline void init(){
 	for(int i=0; i<20; i++){
-		l[i] = (1<<17)-2;
-		_[i] = (1<<17)-2;
-	}
-	for(int i=0; i<5; i++){
-		for(int j=0; j<5; j++){
-			o[i][j] = (1<<17)-2;
-		}
-	}
-	for(int i=0; i<20; i++){
 		gbarr[(1<<i)%37] = i;
 	}
 	for(int i=0; i<=(1<<17); i++){
@@ -53,6 +48,19 @@ inline void init(){
 			tmp -= lowbit(tmp);
 		}
 		get1[i] = cnt;
+	}
+}
+inline void clr(){
+	memset(ma, 0, sizeof(ma));
+	tot=0;
+	for(int i=0; i<20; i++){
+		l[i] = (1<<17)-2;
+		_[i] = (1<<17)-2;
+	}
+	for(int i=0; i<5; i++){
+		for(int j=0; j<5; j++){
+			o[i][j] = (1<<17)-2;
+		}
 	}
 }
 inline int getbit(int num){
@@ -82,9 +90,6 @@ inline void clrnum(int i, int j, int num){
 	tot--;
 }
 bool dfs(){
-
-	cout << tot << endl;
-
 	if(tot==256){
 		for(int i=0; i<16; i++){
 			for(int j=0; j<16; j++){
@@ -92,6 +97,7 @@ bool dfs(){
 			}
 			puts("");
 		}
+		puts("");
 		return true;
 	}
 	memcpy(bma[tot], ma, sizeof(ma));
@@ -106,45 +112,36 @@ bool dfs(){
 	int minx=-1, miny=-1;
 	int minccnt=INF;
 	int num;
-	//for(int i=0; i<16; i++){
-	//	for(int j=0; j<16; j++){
-	//		if(ma[i][j]!=0){
-	//			continue;
-	//		}
-	//		coic = getcoic(i,j);
-	//		if(get1[coic]==0){
-
-	//			cout << 1 << endl;
-	//			cout << i << ' ' << j << endl;
-	//			printma();
-
-	//			goto back;
-	//		}
-	//		if(get1[coic]==1){
-	//			setnum(i, j, getbit(coic));
-	//		}	
-	//	}
-	//}
+	for(int i=0; i<16; i++){
+		for(int j=0; j<16; j++){
+			if(ma[i][j]!=0){
+				continue;
+			}
+			coic = getcoic(i,j);
+			if(get1[coic]==0){
+				goto back;
+			}
+			if(get1[coic]==1){
+				setnum(i, j, getbit(coic));
+			}
+		}
+	}
 	for(int i=0; i<16; i++){
 		for(int c=_[i]; c; c-=lowbit(c)){
 			num = getbit(lowbit(c));
 			ppos=-1;
 			pcnt=0;
 			for(int j=0; j<16; j++){
+				if(ma[i][j]!=0){
+					continue;
+				}
 				coic = getcoic(i,j);
 				if((coic>>num)&1){
 					ppos=j;
 					pcnt++;
 				}
 			}
-
-			cout << ppos << ' ' << pcnt << endl;
-
 			if(pcnt==0){
-
-				cout << 2 << endl;
-				//cout << i << ' '  << num << endl;
-
 				goto back;
 			}
 			if(pcnt==1){
@@ -158,16 +155,16 @@ bool dfs(){
 			ppos=-1;
 			pcnt=0;
 			for(int j=0; j<16; j++){
+				if(ma[j][i]!=0){
+					continue;
+				}
 				coic = getcoic(j,i);
 				if((coic>>num)&1){
-					ppos=i;
+					ppos=j;
 					pcnt++;
 				}
 			}
 			if(pcnt==0){
-
-				cout << 3 << endl;
-
 				goto back;
 			}
 			if(pcnt==1){
@@ -179,11 +176,17 @@ bool dfs(){
 		for(int j=0; j<4; j++){
 			for(int c=o[i][j]; c; c-=lowbit(c)){
 				num = getbit(lowbit(c));
+
+				//cout << num << endl;
+
 				pposx=-1;
 				pposy=-1;
 				pcnt=0;
 				for(int ii=0; ii<4; ii++){
 					for(int jj=0; jj<4; jj++){
+						if(ma[i*4+ii][j*4+jj]!=0){
+							continue;
+						}
 						coic = getcoic(i*4+ii, j*4+jj);
 						if((coic>>num)&1){
 							pposx = ii;
@@ -193,9 +196,7 @@ bool dfs(){
 					}
 				}
 				if(pcnt==0){
-
-					cout << 4 << endl;
-
+					//cout << 4 << endl;
 					goto back;
 				}
 				if(pcnt==1){
@@ -211,17 +212,15 @@ bool dfs(){
 			}
 			coic = getcoic(i,j);
 			if(get1[coic]==0){
-
-				cout << 6 << endl;
-				//cout << i << ' ' << j << endl;
-				//printma();
-
 				goto back;
 			}
 			if(get1[coic]==1){
 				setnum(i, j, getbit((coic)));
-			}	
+			}
 		}
+	}
+	if(tot==256){
+		return dfs();
 	}
 	for(int i=0; i<16; i++){
 		for(int j=0; j<16; j++){
@@ -243,10 +242,6 @@ bool dfs(){
 		}
 		clrnum(minx, miny, getbit(lowbit(coic)));
 	}
-
-	cout << 5 << endl;
-	//cout << minccnt << ' ' << minx << ' ' << miny << endl;
-
 back:
 	tot = btot;
 	memcpy(ma, bma[tot], sizeof(ma));
@@ -255,18 +250,25 @@ back:
 	memcpy(o, bo[tot], sizeof(o));
 	return false;
 }
-
 int main(){
 	char ch;
 	init();
-	for(int i=0; i<16; i++){
-		for(int j=0; j<16; j++){
-			ch = getchar();
-			if(ch!='-'){
-				setnum(i, j, ch-'A'+1);
+	while(1){
+		clr();
+		for(int i=0; i<16; i++){
+			for(int j=0; j<16; j++){
+				ch = getchar();
+				if(ch==EOF){
+					return 0;
+				}
+				if(ch!='-'){
+					setnum(i, j, ch-'A'+1);
+				}
 			}
+			getchar();
 		}
+		dfs();
 		getchar();
 	}
-	dfs();
 }
+
