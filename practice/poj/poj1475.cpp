@@ -51,10 +51,19 @@ bool operator<(const Com &a, const Com &b){
 vector<Com> v;
 int dis[25][25];
 inline int bfsman(int curx, int cury, int opx, int opy){
+
+	//cout << "bfsman " << curx << ' ' << cury << ' ' << opx << ' ' << opy << endl;
+
 	if(!valid(opx, opy)){
+
+		//cout << -1 << endl;
+
 		return -1;
 	}
 	if(curx==opx && cury==opy){
+
+		//cout << 0 << endl;
+
 		return 0;
 	}
 	while(qm.size()){
@@ -71,12 +80,18 @@ inline int bfsman(int curx, int cury, int opx, int opy){
 			if(valid(curx+dx[i], cury+dy[i]) && dis[curx+dx[i]][cury+dy[i]]<0){
 				dis[curx+dx[i]][cury+dy[i]] = dis[curx][cury] + 1;
 				if(curx+dx[i]==opx && cury+dy[i]==opy){
+
+					//cout << dis[curx+dx[i]][cury+dy[i]] << endl;
+
 					return dis[curx+dx[i]][cury+dy[i]];
 				}
 				qm.push({curx+dx[i], cury+dy[i]});
 			}
 		}
 	}
+	
+	//cout << -1 << endl;
+
 	return -1;
 }
 inline bool bfs(){
@@ -126,16 +141,17 @@ inline bool bfs(){
 			break;
 		}
 		for(int i=0; i<4; i++){
-			if(!valid(x-dx[i], y-dy[i])){
+			if(!valid(x-dx[i], y-dy[i]) || dbox[x-dx[i]][y-dy[i]][i]>=0){
 				continue;
 			}
 			ma[x][y] = '#';
 			int man = bfsman(x+dx[dir], y+dy[dir], x+dx[i], y+dy[i]);
-
-			cout << "bfsman " << x+dx[dir] << ' ' << y+dy[dir] << ' ' <<  x+dx[i] << ' ' <<  y+dy[i]<< endl << man << endl;
 			ma[x][y] = '.';
 			if(man>=0){
 				dman[x-dx[i]][y-dy[i]][i] = dman[x][y][dir] + man + 1;
+
+				cout << "dman " << x << ' ' << y << ' '  << dir << ' ' << x-dx[i] << ' ' <<  y-dy[i]<<  ' ' << i << endl << dman[x-dx[i]][y-dy[i]][i] << endl;
+
 				dbox[x-dx[i]][y-dy[i]][i] = dbox[x][y][dir] + 1;
 				if(x-dx[i]==tgx && y-dy[i]==tgy){
 					stop = dbox[x-dx[i]][y-dy[i]][i];
