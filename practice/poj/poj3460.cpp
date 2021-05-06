@@ -32,7 +32,7 @@ bool dfs(int cur, int lim){
 			for(int k=r+1; k<n; k++){
 				memcpy(arr, barr[cur], sizeof(arr));
 				
-				//cout << l << ' ' << r << ' ' << k << endl;
+				//cout <<cur << ' ' <<  l << ' ' << r << ' ' << k << endl;
 				//for(int i=0; i<n; i++){
 				//	cout << barr[cur][i] << ' ';
 				//}
@@ -54,6 +54,7 @@ bool dfs(int cur, int lim){
 				if(dfs(cur+1, lim)){
 					return true;
 				}
+				memcpy(arr, barr[cur], sizeof(arr));
 			}
 		}
 	}
@@ -69,6 +70,9 @@ int main(){
 			cin >> arr[i];
 		}
 		for(int d=0; d<=4; d++){
+
+			//cout << d << endl;
+
 			if(dfs(0,d)){
 				cout << d << endl;
 				goto nx;
