@@ -30,10 +30,10 @@ int main(){
 			}
 			if(a[i]==0){
 				zero=1;
-				//dim--;
+				dim--;
 				break;
 			}
-			for(int k=64; k>=0; k--){
+			for(int k=63; k>=0; k--){
 				if(getbit(a[i],k)){
 					for(ULL j=0; j<n; j++){
 						if(i==j){
@@ -47,12 +47,6 @@ int main(){
 				}
 			}
 		}
-
-		cout << "dim" << dim << endl;
-		for(int i=0; i<n; i++){
-			cout << a[i] << endl;
-		}
-
 		ULL q;
 		RULL(q);
 		printf("Case #%llu:\n", kase);
